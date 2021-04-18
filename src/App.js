@@ -21,7 +21,7 @@ const colleges = [
 ];
 const genders = [{value: 0, label: 'Male'}, {value: 1, label: 'Female'}];
 const types = [{value: 0, label: 'Intern'}, {value: 1, label: 'Full-time'}, {value: 2, label: 'Experienced hire'}];
-const openSource = [{value: 0, label: 'GSOC'}, {value: 1, label: 'GSSOC'}, {value: 3, label: 'Hacktoberfest'}, {value: 2, label: 'Others'}];
+const openSource = [{value: 0, label: 'GSOC'}, {value: 1, label: 'GSSOC'}, {value: 3, label: 'Hacktoberfest'}];
 const sortTypes = [{value: 0, label: 'CodeChef Rating'}, {value: 1, label: 'CodeForces Rating'}, {
     value: 2,
     label: 'None'
@@ -176,7 +176,7 @@ class App extends React.Component {
             sortTypes: sortTypes,
             selectedSortType: sortTypes[2].label,
             openSource: openSource,
-            selectedOpenSource: openSource.map(item => item.label),
+            selectedOpenSource: [],
             profiles: null,
             selectedProfiles: null
         };
@@ -206,15 +206,16 @@ class App extends React.Component {
     }
 
     updateProfiles(update) {
-        const newState = Object.assign({}, this.state, update)
+        let newState = Object.assign({}, this.state, update)
         let selectedProfiles = this.state.profiles.filter(profile => {
             return (
                 newState.selectedGenders.includes(profile.gender) &&
-                newState.selectedColleges.includes(profile.college) &&
+                (newState.selectedOpenSource.length ? newState.selectedOpenSource.includes(profile.os) : true) &&
+                newState.selectedColleges.includes(profile.cfilter) &&
                 newState.selectedTypes.includes(profile.type)
             )
         })
-        if (update.hasOwnProperty('selectedSortType')) {
+        if(newState.selectedSortType !== 'None' ) {
             switch (update['selectedSortType']) {
                 case 'CodeChef Rating' :
                     selectedProfiles = selectedProfiles.sort((p1, p2) => p2.ccrating - p1.ccrating)
@@ -223,12 +224,9 @@ class App extends React.Component {
                     selectedProfiles = selectedProfiles.sort((p1, p2) => p2.cfrating - p1.cfrating)
                     break;
             }
-            const finalState = Object.assign({}, newState, {selectedProfiles: selectedProfiles})
-            this.setState(finalState)
-        } else {
-            const finalState = Object.assign({}, newState, {selectedProfiles: selectedProfiles})
-            this.setState(finalState)
         }
+        newState = Object.assign({}, newState, {selectedProfiles: selectedProfiles})
+        this.setState(newState)
     }
 
     handleColleges(e) {
@@ -238,7 +236,7 @@ class App extends React.Component {
     }
 
     handleTypes(e) {
-        if (e === null || e.length === 0) e = this.state.colleges
+        if (e === null || e.length === 0) e = this.state.types
         e = e.map(item => item.label)
         this.updateProfiles({selectedTypes: e})
     }
@@ -256,7 +254,7 @@ class App extends React.Component {
     }
 
     handleOpenSource(e) {
-        if (e === null || e.length === 0) e = this.state.openSource
+        if (e === null || e.length === 0) e = []
         e = e.map(item => item.label)
         this.updateProfiles({selectedOpenSource: e})
     }
