@@ -73,6 +73,6 @@ app.get("*", (req, res) => {
 //     console.log("Server is running on Port: " + PORT);
 // });
 
-app.listen(function() {
-    console.log("Server is running");
+app.listen(process.env.PORT || PORT, function() {
+    console.log("Server is running on : " + (process.env.PORT || PORT));
 });
