@@ -298,7 +298,7 @@ class App extends React.Component {
                                                 <Row style={styles.text}>{"CodeChef Rating -  "}<a
                                                     href={item.cc}>{item.ccrating}</a></Row>
                                                 <Row style={styles.text}>{"CodeForces Rating -  "}<a
-                                                    href={item.cc}>{item.cfrating}</a></Row>
+                                                    href={item.cf}>{item.cfrating}</a></Row>
                                                 <Row style={styles.text}>{`Open source experience - ${item.osdetail}`}</Row>
                                                 <Row style={styles.text}>{`Experience - ${item.workex}`}</Row>
                                                 <Row style={styles.text}>{`Miscellaneous - ${item.misc}`}</Row>
