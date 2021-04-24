@@ -65,13 +65,13 @@ routes.route('/update/:id').post(function(req, res) {
 
 app.use('/profiles', routes);
 
-app.listen(PORT, function() {
-    console.log("Server is running on Port: " + PORT);
-});
+// app.listen(PORT, function() {
+//     console.log("Server is running on Port: " + PORT);
+// });
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-// app.listen(function() {
-//     console.log("Server is running");
-// });
+app.listen(function() {
+    console.log("Server is running");
+});

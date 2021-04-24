@@ -36,7 +36,7 @@ export default class EditProfile extends Component {
 
     componentDidMount() {
         console.log('Request sent')
-        axios.get('http://techjobs100.herokuapp.com/profiles/' + fire.auth().currentUser.uid)
+        axios.get('https://techjobs100.herokuapp.com/profiles/' + fire.auth().currentUser.uid)
             .then(response => {
                 this.setState(Object.assign({}, response.data))
             })
@@ -52,7 +52,7 @@ export default class EditProfile extends Component {
     onSubmit(e) {
         e.preventDefault();
         const obj = this.state
-        axios.post('http://techjobs100.herokuapp.com/profiles/update/' + fire.auth().currentUser.uid, obj)
+        axios.post('https://techjobs100.herokuapp.com/profiles/update/' + fire.auth().currentUser.uid, obj)
             .then(res => console.log(res.data));
 
         this.props.history.push('/');

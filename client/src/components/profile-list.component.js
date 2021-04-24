@@ -200,7 +200,7 @@ Pagination.defaultProps = defaultProps;
 export default class ProfileList extends Component {
 
     componentDidMount() {
-        axios.get('http://techjobs100.herokuapp.com/profiles/')
+        axios.get('https://techjobs100.herokuapp.com/profiles/')
             .then(response => {
                 console.log(response)
                 this.setState({
