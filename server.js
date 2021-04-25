@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.dmtwv.mongodb.net/techjobs?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
