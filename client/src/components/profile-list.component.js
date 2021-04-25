@@ -7,7 +7,8 @@ import Select from "react-select"
 import PropTypes from "prop-types"
 import * as Icons from "react-ionicons";
 import axios from 'axios';
-import { URL } from '../constants'
+const URL = 'https://techjobs100.herokuapp.com/'
+// const URL = 'http://localhost:4000/'
 
 const Profile = ({ profile }) => {
 

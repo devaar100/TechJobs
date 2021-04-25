@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import fire from '../fire'
-import { URL } from '../constants'
+const URL = 'https://techjobs100.herokuapp.com/'
+// const URL = 'http://localhost:4000/'
 
 export default class EditProfile extends Component {
 
