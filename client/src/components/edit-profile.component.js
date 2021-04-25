@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import fire from '../fire'
+import { URL } from '../constants'
 
 export default class EditProfile extends Component {
 
@@ -36,7 +37,7 @@ export default class EditProfile extends Component {
 
     componentDidMount() {
         console.log('Request sent')
-        axios.get('https://techjobs100.herokuapp.com/profiles/' + fire.auth().currentUser.uid)
+        axios.get(`${URL}profiles/` + fire.auth().currentUser.uid)
             .then(response => {
                 this.setState(Object.assign({}, response.data))
             })
@@ -52,7 +53,7 @@ export default class EditProfile extends Component {
     onSubmit(e) {
         e.preventDefault();
         const obj = this.state
-        axios.post('https://techjobs100.herokuapp.com/profiles/update/' + fire.auth().currentUser.uid, obj)
+        axios.post(`${URL}profiles/update/` + fire.auth().currentUser.uid, obj)
             .then(res => console.log(res.data));
 
         this.props.history.push('/');
@@ -178,6 +179,7 @@ export default class EditProfile extends Component {
                                 <option value="3rd" selected={this.state.year==='3rd'}>3rd</option>
                                 <option value="4th" selected={this.state.year==='4th'}>4th</option>
                                 <option value="5th" selected={this.state.year==='5th'}>5th</option>
+                                <option value="Recent graduate" selected={this.state.year==='Recent graduate'}>Recent graduate</option>
                             </select>
                         </div>
                     </div>

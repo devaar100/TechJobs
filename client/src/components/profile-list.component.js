@@ -7,6 +7,7 @@ import Select from "react-select"
 import PropTypes from "prop-types"
 import * as Icons from "react-ionicons";
 import axios from 'axios';
+import { URL } from '../constants'
 
 const Profile = ({ profile }) => {
 
@@ -59,7 +60,7 @@ const colleges = [
     {value: 7, label: 'Other'}
 ];
 const genders = [{value: 0, label: 'Male'}, {value: 1, label: 'Female'}];
-const years = [{value: 0, label: '1st'}, {value: 1, label: '2nd'}, {value: 2, label: '3rd'}, {value: 4, label: '4th'}, {value: 4, label: '5th'}];
+const years = [{value: 0, label: '1st'}, {value: 1, label: '2nd'}, {value: 2, label: '3rd'}, {value: 4, label: '4th'}, {value: 4, label: '5th'}, {value: 5, label: 'Recent graduate'}];
 const sortTypes = [{value: 0, label: 'CodeChef Rating'}, {value: 1, label: 'CodeForces Rating'}, { value: 2, label: 'None'}]
 const cgpas = [{value: 0, label: 'Below 8'}, {value: 1, label: '8+'}, {value: 2, label: '8.5+'}, {value: 3, label: '9+'}, {value: 4, label: '9.5+'}];
 
@@ -200,7 +201,7 @@ Pagination.defaultProps = defaultProps;
 export default class ProfileList extends Component {
 
     componentDidMount() {
-        axios.get('https://techjobs100.herokuapp.com/profiles/')
+        axios.get(`${URL}profiles/`)
             .then(response => {
                 console.log(response)
                 this.setState({
