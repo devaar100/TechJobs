@@ -55,9 +55,14 @@ export default class EditProfile extends Component {
         e.preventDefault();
         const obj = this.state
         axios.post(`${URL}profiles/update/` + fire.auth().currentUser.uid, obj)
-            .then(res => console.log(res.data));
+            .then(res => {
+                if(res.status === 200) {
+                    console.log(res.data)
+                    alert('Profile updated successfully !')
+                }
+            });
 
-        this.props.history.push('/');
+        this.props.history.push('/all');
     }
 
     render() {

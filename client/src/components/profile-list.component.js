@@ -206,18 +206,36 @@ Pagination.defaultProps = defaultProps;
 export default class ProfileList extends Component {
 
     componentDidMount() {
-        axios.get(`${URL}profiles/`)
-            .then(response => {
-                console.log(response)
-                this.setState({
-                    profiles: response.data,
-                    loading: false,
+        let id = this.props.location.state?.id
+        console.log('In profile', id)
+        if(id) {
+            console.log(`${URL}jobs/profiles/${id}`)
+            axios.get(`${URL}jobs/profiles/${id}`)
+                .then(response => {
+                    console.log(response)
+                    this.setState({
+                        profiles: response.data.applicants,
+                        loading: false,
+                    })
+                    this.updateProfiles({})
                 })
-                this.updateProfiles({})
-            })
-            .catch(function (error){
-                console.log(error);
-            })
+                .catch(function (error){
+                    console.log(error);
+                })
+        } else {
+            axios.get(`${URL}profiles/`)
+                .then(response => {
+                    console.log(response)
+                    this.setState({
+                        profiles: response.data,
+                        loading: false,
+                    })
+                    this.updateProfiles({})
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+        }
     }
 
     constructor(props) {
