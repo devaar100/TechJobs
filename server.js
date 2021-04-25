@@ -12,7 +12,6 @@ let Profile = require('./profile.model');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
-
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 const connection = mongoose.connection;
 

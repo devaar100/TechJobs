@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     Container,
-    Row, Col
+    Row, Col,
+    Pagination as RBPagination
 } from "react-bootstrap"
 import Select from "react-select"
 import PropTypes from "prop-types"
@@ -98,7 +99,7 @@ class Pagination extends React.Component {
     setPage(page) {
         const items = this.props.items;
         // get new pager object for specified page
-        const pager = this.getPager(items.length, page);
+        const pager = this.getPager(items.length, page, 5);
 
         if (page < 1 || page > pager.totalPages) {
             return;
@@ -173,25 +174,28 @@ class Pagination extends React.Component {
         }
 
         return (
-            <ul className="pagination">
-                <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(1)}>First</a>
-                </li>
-                <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
-                </li>
+            <RBPagination size="lg">
+                <RBPagination.First
+                    onClick={() => this.setPage(1)}
+                    disabled={pager.currentPage === 1}/>
+                <RBPagination.Prev
+                    onClick={() => this.setPage(pager.currentPage - 1)}
+                    disabled={pager.currentPage === 1}/>
                 {pager.pages.map((page, index) =>
-                    <li key={index} className={pager.currentPage === page ? 'active' : ''}>
-                        <a onClick={() => this.setPage(page)}>{page}</a>
-                    </li>
+                    <RBPagination.Item
+                        onClick={() => this.setPage(page)}
+                        key={index}
+                        active={pager.currentPage === page}>
+                        {page}
+                    </RBPagination.Item>
                 )}
-                <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
-                </li>
-                <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.totalPages)}>Last</a>
-                </li>
-            </ul>
+                <RBPagination.Next
+                    onClick={() => this.setPage(pager.currentPage + 1)}
+                    disabled={pager.currentPage === pager.totalPages}/>
+                <RBPagination.Last
+                    onClick={() => this.setPage(pager.totalPages)}
+                    disabled={pager.currentPage === pager.totalPages}/>
+            </RBPagination>
         );
     }
 }
@@ -335,16 +339,12 @@ export default class ProfileList extends Component {
                             important job listings from top-notch companies
                         </Col>
                     </Row>
-                    <Row className="text-center">
-                        <Col xs={1}/>
-                        <Col xs={10}>
-                            {this.state.selectedProfiles?.length ?
-                                <Pagination
-                                    items={this.state.selectedProfiles}
-                                    onChangePage={this.onChangePage}/> : null
-                            }
-                        </Col>
-                        <Col xs={1}/>
+                    <Row className="justify-content-center" style={{paddingTop: 30, paddingBottom: 50}}>
+                        {this.state.selectedProfiles?.length ?
+                            <Pagination
+                                items={this.state.selectedProfiles}
+                                onChangePage={this.onChangePage}/> : null
+                        }
                     </Row>
                 </Container>
             </>
