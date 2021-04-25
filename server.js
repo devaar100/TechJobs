@@ -123,15 +123,14 @@ jobRoutes.route('/update/:id').post(function(req, res) {
 jobRoutes.route('/apply/:id').post(function(req, res) {
     let id = req.params.id
     Profile.findOne({uid: id}, function(err, profile) {
-        try {
-            const userId = profile._id
-        } catch (e) {
-            console.log(e)
-            res.status(200).send("Profile incomplete")
-        }
         Post.findById(req.body._id, function(err, job) {
             job = Object.assign(job, req.body)
-            job.applicants.push(profile._id)
+            try {
+                job.applicants.push(profile._id)
+            } catch (e) {
+                console.log(e)
+                res.status(200).send("Profile incomplete")
+            }
             job.save().then(profile => {
                 res.status(200).json({'job': 'job updated successfully'});
                 alert('Job updated successfully')
