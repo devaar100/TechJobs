@@ -130,6 +130,7 @@ jobRoutes.route('/apply/:id').post(function(req, res) {
             } catch (e) {
                 console.log(e)
                 res.status(200).send("Profile incomplete")
+                return
             }
             job.save().then(profile => {
                 res.status(200).json({'job': 'job updated successfully'});
